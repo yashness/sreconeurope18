@@ -5,7 +5,8 @@
 
 ### Install Gnuplot
 > [Linux] yum install gnuplot
->> [Mac] brew install gnuplot --with-qt
+
+> [Mac] brew install gnuplot --with-qt
 
 -----
 # Download material
@@ -14,6 +15,9 @@
 -----
 # Setup
 > cd sreconeurope18
+
 > virtualenv -p python3 venv
+
 > source venv/bin/activate
+
 > pip install -r requirements.txt 
