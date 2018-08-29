@@ -1,4 +1,4 @@
-# DATA VISUALISATION FOR SREs
+# Data visualisation for SREs (SRECon workshop)
 ## Installation
 ### virtualenv
 > pip install virtualenv
