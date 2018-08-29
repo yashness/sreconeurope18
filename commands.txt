@@ -1,0 +1,16 @@
+1. Awk/tr/grep/while Intro [2 minutes]
+2. Gnuplot basics & terminology [5 minutes]
+3. Example 1: Load average comparison among hosts
+    1. cat host-load-average.txt | tr -d ":," | gnuplot -e "set terminal dumb; set style data histogram; plot '-' using 3:xticlabels(1) title '5 minutes Load average comparision / hosts"
+4. Example 2: Live memory usage
+    1. while true; do clear; tail -35 /tmp/mem.dat | gnuplot -e "set terminal dumb; unset xtics; set border 1234; plot '-' using 1 with lines title 'Free memory live plot'"; sleep 1; done
+5. Example 3: Latency plotting
+    1. cat latency.log | awk '{print $1"@"$2,$8}' | tee -a /tmp/latency.log |  gnuplot -e 'set terminal dumb 180,50; set xdata time; set timefmt "[%y-%m-%d@%H:%M"; plot "-" using 1:2 w l title "Data througput timeseries"'
+6. Example 4: 2xx, 4xx plotting
+    1. for responseCode in 200 301 404 503; do cat access.log | awk '$9 == '$responseCode' {print $0}' | gnuplot -e "set terminal dumb; set xdata time; set timefmt '[%d/%b/%Y:%H:%M'; set format x '%b/%y'; plot '-' using 4:(1) w l smooth freq title \"$responseCode response\""; done
+7. Example 5: Bots indexing frequency/pattern insights
+    1. for botname in Googlebot  bingbot YandexBot  DotBot; do grep robots.txt access.log | grep $botname | gnuplot -e "set terminal dumb 120,30; set xdata time; set timefmt '[%d/%b/%Y:%H:%M'; set format x '%d/%b/%y'; plot '-' using 4:(1) w l smooth freq title \"$botname indexing pattern\""; done
+8. Example 6: Plotting world map & where users are coming from
+    1. gnuplot -e "set terminal png; set xdata geographic; set ydata geographic; set format x '%D %E'; set format y '%D %N'; set yzeroaxis; set output 'world.png'; plot 'world.dat' w l notitle"
+    2. cat access.log| awk '$1 != "::1" {print $1}' | sort | uniq  > /tmp/ip.txt
+    3. python ip2coordinates.py | gnuplot -e "set terminal png; set xdata geographic; set ydata geographic; set format x '%D %E'; set format y '%D %N'; set yzeroaxis; set output 'world.png'; plot '-' using 1:2 title 'User access' pt 7 ps 1, 'world.dat' w l notitle"
