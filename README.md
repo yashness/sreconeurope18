@@ -4,7 +4,7 @@
 
 ### Install Gnuplot
 > [Linux] yum install gnuplot
-> [Mac] brew install gnuplot --with-qt
+>> [Mac] brew install gnuplot --with-qt
 
 -----
 # Download material
